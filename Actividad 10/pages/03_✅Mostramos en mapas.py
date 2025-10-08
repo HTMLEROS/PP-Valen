@@ -21,7 +21,7 @@ def generar_mapa():
     return m
 
 
-lagos = pd.read_csv('lagos_arg.csv')
+felinos = pd.read_csv('felinos_filtrado.csv')
 st.title("Mapa")
 mapa = generar_mapa()
 
@@ -30,22 +30,22 @@ def agregar_marca_aerop(row):
     #st.write(color)
     folium.Marker(
         [row['lat'], row['lng']],
-        popup=row['Nombre'],
+        popup=row['locality'],
         icon=folium.Icon()
         ).add_to(mapa)
 
 ac1,ac2 = st.columns([0.3, 0.7])
-r_areas = ac1.checkbox("Grandes")
+r_areas = ac1.checkbox("puma")
 if r_areas:
-    a_larg = lagos[lagos['Sup Tamaño']=='grande']
+    a_larg = felinos[felinos['genus']=='Puma']
     a_larg.apply(agregar_marca_aerop, axis=1)
-r_parques = ac1.checkbox("Medianos")
+r_parques = ac1.checkbox("leopardo")
 if r_parques:
-    a_med = lagos[lagos['Sup Tamaño']=='medio']
+    a_med = felinos[felinos['genus']=='Leopardus']
     a_med.apply(agregar_marca_aerop, axis=1)
-r_monu = ac1.checkbox("Pequeños")
+r_monu = ac1.checkbox("pantera")
 if r_monu:
-    a_small = lagos[lagos['Sup Tamaño']=='chico']
+    a_small = felinos[felinos['genus']=='Panthera']
     a_small.apply(agregar_marca_aerop, axis=1)
 with ac2:
-    st_folium(mapa, key='lagos')
+    st_folium(mapa, key='felinos')

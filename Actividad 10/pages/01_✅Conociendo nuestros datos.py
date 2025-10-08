@@ -22,5 +22,3 @@ with st.expander("¿Cuáles son los valores únicos de la columna **stateProvinc
 with st.expander("¿Cuáles son los nombres de las columnas ?"):
    
     st.write(felinos.columns)
-
-        

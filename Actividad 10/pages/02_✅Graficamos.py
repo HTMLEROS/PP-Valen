@@ -1,10 +1,6 @@
 import streamlit as st
 import pandas as pd
-import datetime
-
-import streamlit as st
 import matplotlib.pyplot as plt
-
 
 felinos = pd.read_csv('felinos_filtrado.csv')
 st.title("Gráfico")
