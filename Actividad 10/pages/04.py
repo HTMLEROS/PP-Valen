@@ -1,48 +1,24 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
 from numpy.random import default_rng as rng
+
+st.title("felinos avistados en Argentina")
+st.image('images/leo.jpg')
+fig,ax = plt.subplots()
 
 felinos=pd.read_csv('felinos_filtrado.csv')
 
-st.title("Informacion sobre felinos avistados en la Argentina")
-st.image('images/leo.jpg')
+años=felinos['year'].value_counts()
+st.write(años)
 
-st.subheader("¿Que desea saber?")
+# Crear el gráfico de barras
+años.plot(kind='bar', ax=ax, color='red')
 
-#seleccionador
-columnas = st.selectbox(
-    "¿Que desea saber?",
-    ("kingdom", "phylum", "class", "order", "family", "genus", "species", "locality", "stateProvince", "lat", "lng", "elevation",
-       "day", "month", "year", "taxonKey", "ScientificName",
-       "VernacularNames"),
-)
+# Agregar etiquetas y título
+ax.set_xlabel('year')
+ax.set_ylabel('avistajes')
+ax.set_title('Cantidad de avistajes de felinos por provincia')
 
-st.write("You selected:", columnas)
-
-genus = len(felinos['genus'].unique())
-avis = len(felinos['day'].value_counts())
-
-felinos(
-    {
-        genus: ["Puma", "Leopardus", "Panthera"],
-        "c. de avistamientos": rng(0).integers(0, 1000, size=3),
-        "dias avistados": rng(0).integers(0, 5000, size=(3, 30)).tolist(),
-    }
-)
-
-st.dataframe(
-    felinos,
-    column_config={
-        genus: "tipo",
-        "day": st.column_config.NumberColumn(
-            "Github Stars",
-            help="Number of stars on GitHub",
-            format="%d ⭐",
-        ),
-        "url": st.column_config.LinkColumn("App URL"),
-        "views_history": st.column_config.LineChartColumn(
-            "Views (past 30 days)", y_min=0, y_max=5000
-        ),
-    },
-    hide_index=True,
-)
+# Mostrar el gráfico
+st.pyplot(fig)
