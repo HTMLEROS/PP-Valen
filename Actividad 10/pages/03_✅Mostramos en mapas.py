@@ -23,6 +23,7 @@ def generar_mapa():
 
 felinos = pd.read_csv('felinos_filtrado.csv')
 st.title("Mapa")
+st.markdown("En este mapa veremos los avistajes de los 3 distintos tipos de felinos")
 mapa = generar_mapa()
 
 def agregar_marca_aerop(row):

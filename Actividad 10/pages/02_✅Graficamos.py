@@ -4,10 +4,18 @@ import matplotlib.pyplot as plt
 
 felinos = pd.read_csv('felinos_filtrado.csv')
 st.title("Gráfico")
+st.markdown("Este gráfico nos muestra la cantidad de avistajes por provincia")
 fig,ax = plt.subplots()
 
+#arreglo de Neuquen
+col_replace = {'Neuquén / Río Negro' : 'Neuquén', 'Neuquen' : 'Neuquén'}
+
+#evitar errores
+felinos_c = felinos.copy()
+felinos_c['stateProvince'] = felinos_c['stateProvince'].replace(col_replace)
+
 # Crear el gráfico de barras
-provincia = felinos['stateProvince'].value_counts()
+provincia = felinos_c['stateProvince'].value_counts()
 provincia.plot(kind='bar', ax=ax, color='red')
 
 # Agregar etiquetas y título
