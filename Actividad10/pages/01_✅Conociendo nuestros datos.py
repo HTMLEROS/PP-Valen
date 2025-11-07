@@ -3,7 +3,7 @@ import streamlit as st
 
 felinos=pd.read_csv('felinos_filtrado.csv')
 st.title("Parte 1")
-st.header("Datos que encontraron")
+st.header("Informacion sobre las columnas del csv")
 st.markdown("El dataset cuenta con muchos datos como las provincias, los dias avistados, entre otros. Destacaremos los mas importantes")
 filas, columnas = felinos.shape
 with st.expander("¿Cuántas filas y columnas tiene el dataset?"):
