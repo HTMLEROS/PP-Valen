@@ -1,0 +1,187 @@
+{
+  "_signature": "PDLZ_v1::1762957031214",
+  "data": {
+    "variables": [
+      {
+        "id": "1853628358",
+        "name": "frlinos"
+      },
+      {
+        "id": "1641494193",
+        "name": "felinos"
+      },
+      {
+        "id": "172140495",
+        "name": "genus"
+      },
+      {
+        "id": "157753129",
+        "name": "especie"
+      }
+    ],
+    "csvsData": [
+      {
+        "id": 619179687,
+        "filename": "felinos_filtrado.csv",
+        "columnsNames": [
+          "Unnamed: 0",
+          "kingdom",
+          "phylum",
+          "class",
+          "order",
+          "family",
+          "genus",
+          "species",
+          "locality",
+          "stateProvince",
+          "lat",
+          "lng",
+          "elevation",
+          "day",
+          "month",
+          "year",
+          "taxonKey",
+          "ScientificName",
+          "VernacularNames"
+        ]
+      }
+    ],
+    "blocks": {
+      "blocks": {
+        "languageVersion": 0,
+        "blocks": [
+          {
+            "type": "variables_set",
+            "id": "%]0C2syT0PnyNNEi6cFs",
+            "x": 76,
+            "y": 35,
+            "fields": {
+              "variableSetterKey": "1641494193"
+            },
+            "inputs": {
+              "VALUE": {
+                "block": {
+                  "type": "read_csv",
+                  "id": "eVd2~M/@(;VgsvHPRpf,",
+                  "fields": {
+                    "csvOptions": "619179687"
+                  }
+                }
+              }
+            },
+            "next": {
+              "block": {
+                "type": "variables_set",
+                "id": "s_lT}P8%Gsew*wEiiE!*",
+                "fields": {
+                  "variableSetterKey": "157753129"
+                },
+                "inputs": {
+                  "VALUE": {
+                    "block": {
+                      "type": "valueCounts",
+                      "id": "}1}v_otvZrxs!Aw{Vy}h",
+                      "inputs": {
+                        "VALUE": {
+                          "block": {
+                            "type": "property",
+                            "id": "!A$LG.W2Z9}OSJQ2]{Yn",
+                            "extraState": {
+                              "selectedOption": "species"
+                            },
+                            "fields": {
+                              "dropdown": "species"
+                            },
+                            "inputs": {
+                              "blockInput": {
+                                "block": {
+                                  "type": "variables_get",
+                                  "id": "Zn-d!ej5#lu[*NlKz(/}",
+                                  "fields": {
+                                    "variableGetterKey": "1641494193"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "next": {
+                  "block": {
+                    "type": "showInConsole",
+                    "id": "]16vwL~BGZRaiAFzTNbZ",
+                    "inputs": {
+                      "VALUE": {
+                        "block": {
+                          "type": "pie",
+                          "id": "!,Kchf8/5!8/|sfH!P{y",
+                          "inputs": {
+                            "dataFrameValue": {
+                              "block": {
+                                "type": "variables_get",
+                                "id": "@I9T`%tByVcsq:?V}m=v",
+                                "fields": {
+                                  "variableGetterKey": "157753129"
+                                }
+                              }
+                            },
+                            "xValue": {
+                              "block": {
+                                "type": "values",
+                                "id": "`:Q_AqdV9@NYg@u*uXMl",
+                                "inputs": {
+                                  "argument": {
+                                    "block": {
+                                      "type": "variables_get",
+                                      "id": "hM+H)sJ%X=L?A[7xAi!,",
+                                      "fields": {
+                                        "variableGetterKey": "157753129"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "yValue": {
+                              "block": {
+                                "type": "index",
+                                "id": "YQWnJ+TBwr0}+l9Yd@O+",
+                                "inputs": {
+                                  "argument": {
+                                    "block": {
+                                      "type": "variables_get",
+                                      "id": "6[{az[sWWJ^RTaDDQ;+(",
+                                      "fields": {
+                                        "variableGetterKey": "157753129"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "title": {
+                              "block": {
+                                "type": "primitive_text",
+                                "id": "Ce{+Cbw#?wCSo5:,5{jB",
+                                "fields": {
+                                  "TEXT": "Distintas especies de felinos avistados en la Argentina"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
