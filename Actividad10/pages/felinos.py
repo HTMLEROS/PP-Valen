@@ -85,15 +85,31 @@ elif selection == "species":
 #ubicacion
 elif selection == "ubicacion":
     st.title("Mapa")
-    st.markdown("En este mapa veremos los avistajes de tres géneros de felinos.")
+    st.markdown("En este mapa veremos los avistajes de tres géneros de felinos, filtrados por año.")
+
+    # Get min and max years from the dataframe, handling NaN values
+    min_year = int(felinos['year'].dropna().min())
+    max_year = int(felinos['year'].dropna().max())
+
+    # Create a year range slider
+    selected_years = st.slider(
+        "Seleccione un rango de años",
+        min_value=min_year,
+        max_value=max_year,
+        value=(min_year, max_year)
+    )
+
+    # Filter the dataframe based on the selected year range
+    filtered_felinos_by_year = felinos[
+        (felinos['year'] >= selected_years[0]) & (felinos['year'] <= selected_years[1])
+    ]
 
     mapa = generar_mapa()
 
     def agregar_marca_aerop(row):
-        #st.write(color)
         folium.Marker(
             [row['lat'], row['lng']],
-            popup=row['locality'],
+            popup=f"{row['locality']} ({int(row['year'])})", # Add year to popup
             icon=folium.Icon(color='blue')
         ).add_to(mapa)
 
@@ -101,15 +117,15 @@ elif selection == "ubicacion":
 
     r_puma = ac1.checkbox("puma")
     if r_puma:
-        a_larg = felinos[felinos['genus']=='Puma']
+        a_larg = filtered_felinos_by_year[filtered_felinos_by_year['genus']=='Puma']
         a_larg.apply(agregar_marca_aerop, axis=1)
     r_leopardo = ac1.checkbox("leopardo")
     if r_leopardo:
-        a_med = felinos[felinos['genus']=='Leopardus']
+        a_med = filtered_felinos_by_year[filtered_felinos_by_year['genus']=='Leopardus']
         a_med.apply(agregar_marca_aerop, axis=1)
     r_pantera = ac1.checkbox("pantera")
     if r_pantera:
-        a_small = felinos[felinos['genus']=='Panthera']
+        a_small = filtered_felinos_by_year[filtered_felinos_by_year['genus']=='Panthera']
         a_small.apply(agregar_marca_aerop, axis=1)
 
     with ac2:
