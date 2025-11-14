@@ -5,6 +5,8 @@ from numpy.random import default_rng as rng
 from streamlit_folium import folium_static, st_folium
 import folium
 
+felinos = pd.read_csv('felinos_filtrado.csv')
+
 #inicio
 
 st.title("felinos avistados en Argentina")
@@ -42,9 +44,6 @@ def generar_mapa():
         attr=attr
     )
     return m
-
-#csv
-felinos=pd.read_csv('felinos_filtrado.csv')
 
 #selectbox
 selection = st.selectbox(
@@ -94,7 +93,7 @@ if selection == "genus":
         with st.expander("En Argentina"):
         	st.markdown("En Argentina no habitan especies nativas que se clasifiquen formalmente como leopardos o panteras en el sentido estricto de las especies del género Panthera que viven en África y Asia (como el leopardo africano o la pantera negra). Sin embargo, el término pantera se usa a menudo localmente para referirse al yaguareté, y la palabra leopardo se usa a veces para los felinos manchados más pequeños.")
 #species
-elif selection == "ubicacion":
+elif selection == "species":
     st.markdown("species")
     especies=felinos['species'].value_counts()
     with st.container(border=True):
