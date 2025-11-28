@@ -49,7 +49,7 @@ def generar_mapa():
 selection = st.selectbox(
     "Selecciona el criterio:",
     ("genus", "species", 
-     "ubicacion")
+     "ubicacion", "grafico")
 )
 
 #genus
@@ -104,6 +104,26 @@ elif selection == "species":
     #tab1, tab2 = st.tabs(["Chart", "Dataframe"])
     #tab1.line_chart(felinos, height=250)
     #tab2.dataframe(felinos, height=250, use_container_width=True)
+
+#grafico
+elif selection == "grafico":
+    st.title ("Grafico con datos temporales")
+    
+    #agrupacion año+mes
+    fecha=felinos.groupby(['year']).size().reset_index(name="cantidad")
+
+    #grafico
+    fig,ax = plt.subplots()
+    plt.plot(fecha['year'], fecha['cantidad'], linestyle='-', color='blue')
+
+    #labels
+    plt.xlabel("año")
+    plt.ylabel("cantidad")
+    plt.title("Cantidad de felinos avistados a traves de los años")
+
+    #mostrar
+    st.pyplot(fig)
+
 #ubicacion
 elif selection == "ubicacion":
     st.title("Mapa")
